@@ -1,24 +1,18 @@
-export const PUBLIC_PATH = __webpack_public_path__;
-
 interface Config {
-  gif: string;
   question: string;
   score: number;
 }
 
 export const CONFIGS: { [key: string]: Config } = {
   nikita: {
-    gif: `screen_view_still.gif`,
     question: 'As a certified armchair critic, what would you score Nikitaʼs dive out of 10?',
     score: 7.5
   },
   melissa: {
-    gif: `screen_view_still.gif`,
     question: 'What would you score Melissaʼs dive?',
     score: 9.5
   },
   sam: {
-    gif: `screen_view_still.gif`,
     question: 'What would you score Samʼs dive?',
     score: 6.5
   }

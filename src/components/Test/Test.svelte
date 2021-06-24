@@ -1,12 +1,5 @@
 <script lang="ts">
-  import {
-    CONFIGS,
-    PUBLIC_PATH,
-    getDetailedReaction,
-    getInitialReaction,
-    formatHandleValue,
-    formatPipValue
-  } from './constants';
+  import { CONFIGS, getDetailedReaction, getInitialReaction, formatHandleValue, formatPipValue } from './constants';
   import RangeSlider from 'svelte-range-slider-pips';
 
   export let id: string;
@@ -17,14 +10,13 @@
     throw new Error('Unrecognised ID');
   }
 
-  const { gif, question, score } = config;
+  const { question, score } = config;
 
   let values = [5];
   let hasGuessed = false;
 </script>
 
 <aside>
-  <!-- <img src={`${PUBLIC_PATH}${gif}`} alt="GIF" /> -->
   <p>{question}</p>
   <div class="input">
     <RangeSlider
