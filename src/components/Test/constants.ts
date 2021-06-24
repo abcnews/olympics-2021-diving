@@ -24,8 +24,6 @@ export const CONFIGS: { [key: string]: Config } = {
   }
 };
 
-const formatScoreAsFraction = (score: number) => String(score).replace(/0?.5/, '½');
-
 export const formatPipValue = (score: number) => score.toFixed(2);
 
 export const formatHandleValue = (score: number) => `${score > 0 && score < 10 ? score.toFixed(1) : score} / 10`;
@@ -46,13 +44,10 @@ export const getInitialReaction = (estimate: number, score: number) => {
 
 export const getDetailedReaction = (estimate: number, score: number) => {
   const diff = Math.abs(score - estimate);
-  const formattedScore = formatScoreAsFraction(score);
 
   if (diff === 0) {
-    return `Our Olympic judge also gave this dive a ${formattedScore}`;
+    return `Our Olympic judge also gave this dive a ${score}`;
   }
 
-  return `You were ${diff < 1 ? 'a ' : ''}${formatScoreAsFraction(diff)} point${
-    diff <= 1 ? '' : 's'
-  } off our Olympic judge, who gave this dive a ${formattedScore}`;
+  return `You were ${diff} point${diff === 1 ? '' : 's'} off our Olympic judge, who gave this dive a ${score}`;
 };
