@@ -81,6 +81,7 @@
     margin: 0 auto;
     width: 100%;
     max-width: 21.5625rem;
+    font-family: ABCSans, sans-serif;
     text-align: center;
 
     --range-pip: #fff;
