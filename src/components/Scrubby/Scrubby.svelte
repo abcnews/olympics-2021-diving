@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import type { LottiePlayer } from 'lottie-web';
   import type { LinearScale } from './constants';
   import { CONFIGS, CONFIG_DEFAULTS, createLinearScale } from './constants';
 
@@ -16,8 +17,10 @@
   let figureEl: HTMLElement;
 
   onMount(async () => {
-    const lottie = (await import('lottie-web')).default;
-    const animation = lottie.loadAnimation({
+    const lottiePlayer: LottiePlayer = (
+      await import(/* webpackIgnore: true */ 'https://jspm.dev/npm:lottie-web@5.7.11!cjs')
+    ).default;
+    const animation = lottiePlayer.loadAnimation({
       autoplay: false,
       container: figureEl,
       loop: false,
@@ -31,7 +34,6 @@
     const parentBlockEl = figureEl.closest('.Block') as HTMLDivElement;
 
     let progressScale: LinearScale;
-    console.log(animation);
 
     const updateFactors = () => {
       const viewportHeight = window.innerHeight;
