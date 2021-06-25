@@ -1,5 +1,4 @@
 <script lang="ts">
-  import lottie from 'lottie-web';
   import { onMount } from 'svelte';
   import type { LinearScale } from './constants';
   import { CONFIGS, CONFIG_DEFAULTS, createLinearScale } from './constants';
@@ -16,7 +15,8 @@
 
   let figureEl: HTMLElement;
 
-  onMount(() => {
+  onMount(async () => {
+    const lottie = (await import('lottie-web')).default;
     const animation = lottie.loadAnimation({
       autoplay: false,
       container: figureEl,
