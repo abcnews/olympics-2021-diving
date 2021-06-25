@@ -10,8 +10,32 @@
     <script src="index.js"></script>
   </head>
   <body>
+    <div class="Block" data-viewports-tall="4">
+      <div class="Block-media is-fixed">
+        <div></div>
+      </div>
+      <div>
+        <div data-mount id="scrubbyIDone"></div>
+      </div>
+    </div>
     <div data-mount id="testIDnikita"></div>
+    <div class="Block has-right" data-viewports-tall="4">
+      <div class="Block-media is-fixed">
+        <div></div>
+      </div>
+      <div>
+        <div data-mount id="scrubbyIDtwo"></div>
+      </div>
+    </div>
     <div data-mount id="testIDmelissa"></div>
+    <div class="Block has-left" data-viewports-tall="4">
+      <div class="Block-media is-fixed">
+        <div></div>
+      </div>
+      <div>
+        <div data-mount id="scrubbyIDthree"></div>
+      </div>
+    </div>
     <div data-mount id="testIDsam"></div>
     <script>
       window.dispatchEvent(new CustomEvent('odyssey:api'));
