@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import type { LottiePlayer } from 'lottie-web';
+  import LottiePlayer from 'lottie-web';
   import type { LinearScale } from './constants';
   import { CONFIGS, CONFIG_DEFAULTS, createLinearScale } from './constants';
 
@@ -17,10 +17,7 @@
   let figureEl: HTMLElement;
 
   onMount(async () => {
-    const lottiePlayer: LottiePlayer = (
-      await import(/* webpackIgnore: true */ 'https://jspm.dev/npm:lottie-web@5.7.11!cjs')
-    ).default;
-    const animation = lottiePlayer.loadAnimation({
+    const animation = LottiePlayer.loadAnimation({
       autoplay: false,
       container: figureEl,
       loop: false,
