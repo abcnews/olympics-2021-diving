@@ -2,26 +2,37 @@ interface Config {
   dataURL: string;
   startVH?: number;
   endVH?: number;
+  minBlockHeightVH?: number;
   backgroundColor?: string;
 }
 
 export const CONFIG_DEFAULTS = {
   startVH: 0,
   endVH: 0,
+  minBlockHeightVH: 100,
   backgroundColor: '#fff'
 };
 
 export const CONFIGS: { [key: string]: Config } = {
   one: {
+    startVH: -40,
+    endVH: -80,
+    minBlockHeightVH: 400,
     dataURL: `${__webpack_public_path__}scrubby/one/data.json`
   },
   two: {
     // backgroundColor: 'cyan',
+    startVH: -40,
+    endVH: -80,
+    minBlockHeightVH: 600,
     dataURL: `${__webpack_public_path__}scrubby/two/data.json`
   },
   three: {
-    backgroundColor: 'blue',
-    dataURL: `${__webpack_public_path__}scrubby/one/data.json`
+    // backgroundColor: 'blue',
+    startVH: -40,
+    endVH: -80,
+    minBlockHeightVH: 800,
+    dataURL: `${__webpack_public_path__}scrubby/three/data.json`
   }
 };
 

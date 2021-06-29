@@ -31,18 +31,6 @@ body > * {
   min-height: 100vh;
 }
 
-.Block[data-viewports-tall='2'] {
-  min-height: 200vh;
-}
-
-.Block[data-viewports-tall='4'] {
-  min-height: 400vh;
-}
-
-.Block[data-viewports-tall='8'] {
-  min-height: 800vh;
-}
-
 .Block-media {
   overflow: hidden;
   position: absolute;

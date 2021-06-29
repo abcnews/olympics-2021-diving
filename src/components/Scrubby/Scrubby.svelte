@@ -12,7 +12,7 @@
     throw new Error('Unrecognised ID');
   }
 
-  const { dataURL, startVH, endVH, backgroundColor } = { ...CONFIG_DEFAULTS, ...config };
+  const { dataURL, startVH, endVH, minBlockHeightVH, backgroundColor } = { ...CONFIG_DEFAULTS, ...config };
 
   let figureEl: HTMLElement;
 
@@ -29,6 +29,8 @@
     });
 
     const parentBlockEl = figureEl.closest('.Block') as HTMLDivElement;
+
+    parentBlockEl.style.setProperty('min-height', `${Math.max(100, minBlockHeightVH)}vh`);
 
     let progressScale: LinearScale;
 
