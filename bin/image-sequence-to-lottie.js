@@ -10,7 +10,7 @@ const { dependencies } = require('../package.json');
 const BODYMOVIN_VERSION = dependencies['lottie-web'].replace(/^\^/, '');
 const FRAME_RATE = 30.0;
 const VALID_IMAGE_FILE_EXTENSIONS = ['jpg', 'png'];
-const compareNumericValue = (a, b) => a - b;
+const compareNumericValue = (a, b) => a.split('.')[0] - b.split('.')[0];
 const Calipers = calipers('jpeg', 'png');
 
 async function imageSequenceToLottie(pathFromCWD) {
