@@ -16,12 +16,12 @@ export const CONFIGS: { [key: string]: Config } = {
     dataURL: `${__webpack_public_path__}scrubby/one/data.json`
   },
   two: {
-    dataURL: `${__webpack_public_path__}scrubby/one/data.json`,
-    backgroundColor: 'cyan'
+    // backgroundColor: 'cyan',
+    dataURL: `${__webpack_public_path__}scrubby/two/data.json`
   },
   three: {
-    dataURL: `${__webpack_public_path__}scrubby/one/data.json`,
-    backgroundColor: 'blue'
+    backgroundColor: 'blue',
+    dataURL: `${__webpack_public_path__}scrubby/one/data.json`
   }
 };
 
