@@ -76,6 +76,9 @@
     font-family: ABCSans, sans-serif;
     text-align: center;
 
+    --range-handle: var(--colour-accent);
+    --range-handle-focus: var(--colour-accent-active);
+    --range-float-text: #000;
     --range-pip: #fff;
     --range-pip-text: #000;
   }
@@ -87,10 +90,6 @@
   aside > :last-child {
     margin-bottom: 0;
   }
-
-  /* img {
-    max-width: 100%;
-  } */
 
   p {
     font-family: ABCSerif, sans-serif;
@@ -106,21 +105,6 @@
 
   .input :global(.rangeSlider) {
     border-radius: 0;
-    /* background-image: linear-gradient(
-      to right,
-      #202020,
-      #202020 16.66%,
-      #5b5b5b 16.66%,
-      #5b5b5b 33.33%,
-      #7b7b7b 33.33%,
-      #7b7b7b 50%,
-      #979797 50%,
-      #979797 66.67%,
-      #b1b1b1 66.67%,
-      #b1b1b1 83.34%,
-      #d7d7d7 83.34%,
-      #d7d7d7
-    ); */
     background-image: linear-gradient(
       to right,
       #5b5b5b,
@@ -136,6 +120,15 @@
     );
   }
 
+  .input :global(.rangeSlider) :global(.rangeHandle.hoverable.press)::before,
+  .input :global(.rangeSlider) :global(.rangeHandle.hoverable.press:hover)::before {
+    box-shadow: 0 0 0 10px var(--handle-border);
+  }
+
+  .input :global(.rangeNub) {
+    cursor: pointer;
+  }
+
   .input :global(.rangeHandle)::before,
   .input :global(.rangeNub) {
     border: 0.125rem solid #000;
@@ -149,6 +142,11 @@
   .input :global(.rangeFloat) {
     opacity: 1;
     top: -0.2em;
+  }
+
+  .input :global(.rangeFloat),
+  .input :global(.rangeSlider.focus) :global(.rangeFloat) {
+    background-color: transparent;
   }
 
   .input :global(.rangePips) {
@@ -233,7 +231,7 @@
   button {
     border: 0;
     padding: 0.5rem 2.25rem;
-    background-color: var(--range-handle, #838de7);
+    background-color: var(--colour-accent, #000);
     color: #fff;
     font-family: inherit;
     font-size: 1.125rem;
@@ -243,15 +241,26 @@
 
   button:hover,
   button:focus {
-    background-color: var(--range-handle-focus, #4a40d4);
+    background-color: var(--colour-accent-active, #333);
   }
 
   button[disabled] {
-    background-color: var(--range-handle-inactive, #99a2a2);
+    background-color: var(--colour-accent-faded, #ccc);
     cursor: default;
   }
 
   .reaction {
     min-height: 16rem;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translate(0, 0.5rem);
+    }
+  }
+
+  .reaction > * {
+    animation: fadeIn 0.5s 0.25s both ease-out;
   }
 </style>

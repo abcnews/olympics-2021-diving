@@ -1,3 +1,30 @@
+:root {
+  /* News Web theme */
+  --text-primary: #000;
+  --text-accent: #000;
+  --text-assistant: #fff;
+  --tint-1: #333;
+  --tint-2: #666;
+  --tint-3: #999;
+  --tint-4: #ccc;
+  --tint-5: #e6e6e6;
+  --tint-6: #f2f2f2;
+  --colour-tap-highlight: rgba(15, 116, 179, 0.5);
+  --colour-visited: #300099;
+  --colour-error: #db2100;
+  --colour-valid: #2f7f33;
+  --colour-primary: #01cfff;
+  --colour-accent: #01cfff;
+  --colour-accent-active: rgba(0, 208, 255, 0.7);
+  --colour-accent-faded: rgba(0, 208, 255, 0.25);
+  --colour-assistant: #0058cc;
+  --colour-assistant-dark: #4d9aff;
+  --blockquote-left-border: var(--colour-assistant);
+  --masthead-fill: #0f1010;
+  --content-label-fill: #000;
+  --content-label-text: #fff;
+}
+
 html {
   box-sizing: border-box;
   font-family: ABCSans, sans-serif;
