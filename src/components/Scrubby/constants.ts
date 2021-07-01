@@ -38,7 +38,7 @@ export const CONFIGS: { [key: string]: Config } = {
     // backgroundColor: 'blue',
     startVH: -40,
     endVH: -80,
-    minBlockHeightVH: 1600,
+    minBlockHeightVH: 1200,
     dataURL: `${__webpack_public_path__}scrubby/four/data.json`
   }
 };
