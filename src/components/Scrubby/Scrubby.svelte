@@ -106,8 +106,13 @@
       transform: translate(-50%, -50%);
       top: 50%;
       left: 50%;
-      width: 40%;
+      width: 80%;
       height: 80%;
+    }
+
+    :global(.Block.has-right) figure,
+    :global(.Block.has-left) figure {
+      width: 40%;
     }
 
     :global(.Block.has-right) figure {
