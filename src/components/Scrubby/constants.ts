@@ -19,6 +19,12 @@ export const CONFIGS: { [key: string]: Config } = {
     endVH: -80,
     minBlockHeightVH: 1200,
     dataURL: `${__webpack_public_path__}scrubby/stages/data.json`
+  },
+  stagesblank: {
+    startVH: -40,
+    endVH: -80,
+    minBlockHeightVH: 1200,
+    dataURL: `${__webpack_public_path__}scrubby/stagesblank/data.json`
   }
 };
 
