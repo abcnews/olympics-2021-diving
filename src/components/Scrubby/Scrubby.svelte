@@ -30,7 +30,7 @@
 
     const parentBlockEl = figureEl.closest('.Block') as HTMLDivElement;
 
-    parentBlockEl.style.setProperty('min-height', `${Math.max(100, minBlockHeightVH)}vh`);
+    parentBlockEl.style.setProperty('--scrubby-min-height', `${Math.max(100, minBlockHeightVH)}vh`);
 
     let progressScale: LinearScale;
 
@@ -72,6 +72,10 @@
 </div>
 
 <style>
+  :global(.Block) {
+    min-height: var(--scrubby-min-height) !important;
+  }
+
   .root {
     position: relative;
     overflow: hidden;
