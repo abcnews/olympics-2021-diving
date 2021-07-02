@@ -14,32 +14,11 @@ export const CONFIG_DEFAULTS = {
 };
 
 export const CONFIGS: { [key: string]: Config } = {
-  one: {
-    startVH: -40,
-    endVH: -80,
-    minBlockHeightVH: 400,
-    dataURL: `${__webpack_public_path__}scrubby/one/data.json`
-  },
-  two: {
-    // backgroundColor: 'cyan',
-    startVH: -40,
-    endVH: -80,
-    minBlockHeightVH: 600,
-    dataURL: `${__webpack_public_path__}scrubby/two/data.json`
-  },
-  three: {
-    // backgroundColor: 'blue',
-    startVH: -40,
-    endVH: -80,
-    minBlockHeightVH: 800,
-    dataURL: `${__webpack_public_path__}scrubby/three/data.json`
-  },
-  four: {
-    // backgroundColor: 'blue',
+  stages: {
     startVH: -40,
     endVH: -80,
     minBlockHeightVH: 1200,
-    dataURL: `${__webpack_public_path__}scrubby/four/data.json`
+    dataURL: `${__webpack_public_path__}scrubby/stages/data.json`
   }
 };
 
