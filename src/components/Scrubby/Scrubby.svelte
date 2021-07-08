@@ -1,8 +1,11 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import LottiePlayer from 'lottie-web';
+  import type { AnimationItem } from 'lottie-web';
   import type { LinearScale } from './constants';
   import { CONFIGS, CONFIG_DEFAULTS, createLinearScale } from './constants';
+
+  type AnimationItemWithAnimationData = AnimationItem & { animationData: { w: number; h: number } };
 
   export let id: string;
 
@@ -12,7 +15,7 @@
     throw new Error('Unrecognised ID');
   }
 
-  const { dataURL, startVH, endVH, minBlockHeightVH, backgroundColor } = { ...CONFIG_DEFAULTS, ...config };
+  const { dataURL, startVH, endVH, minBlockHeightVH, pixelRatio, backgroundColor } = { ...CONFIG_DEFAULTS, ...config };
 
   let figureEl: HTMLElement;
 
@@ -35,6 +38,7 @@
     let progressScale: LinearScale;
 
     const updateFactors = () => {
+      const { w, h } = (animation as AnimationItemWithAnimationData).animationData;
       const viewportHeight = window.innerHeight;
       const { height } = parentBlockEl.getBoundingClientRect();
       const domain: [number, number] = [
@@ -43,6 +47,8 @@
       ];
 
       progressScale = createLinearScale(domain, [0, 1], true);
+      figureEl.style.setProperty('--scrubby-figure-max-width', `${w / pixelRatio}px`);
+      figureEl.style.setProperty('--scrubby-figure-max-height', `${h / pixelRatio}px`);
       animation.resize();
     };
 
@@ -97,19 +103,19 @@
   }
 
   figure {
+    transform: translate(-50%, -50%);
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 50%;
+    left: 50%;
     margin: 0;
     width: 100%;
     height: 100%;
+    max-width: var(--scrubby-figure-max-width);
+    max-height: var(--scrubby-figure-max-height);
   }
 
   @media (min-width: 61.25rem) {
     figure {
-      transform: translate(-50%, -50%);
-      top: 50%;
-      left: 50%;
       width: 80%;
       height: 80%;
     }

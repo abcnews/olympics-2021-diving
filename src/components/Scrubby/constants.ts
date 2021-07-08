@@ -3,6 +3,7 @@ interface Config {
   startVH?: number;
   endVH?: number;
   minBlockHeightVH?: number;
+  pixelRatio?: number;
   backgroundColor?: string;
 }
 
@@ -10,6 +11,7 @@ export const CONFIG_DEFAULTS = {
   startVH: 0,
   endVH: 0,
   minBlockHeightVH: 100,
+  pixelRatio: 1,
   backgroundColor: '#fff'
 };
 
@@ -18,13 +20,22 @@ export const CONFIGS: { [key: string]: Config } = {
     startVH: -40,
     endVH: -80,
     minBlockHeightVH: 1200,
+    pixelRatio: 2,
     dataURL: `${__webpack_public_path__}scrubby/stages/data.json`
   },
   stagesblank: {
     startVH: -80,
     endVH: -40,
     minBlockHeightVH: 400,
+    pixelRatio: 2,
     dataURL: `${__webpack_public_path__}scrubby/stagesblank/data.json`
+  },
+  stagesprogress: {
+    startVH: -40,
+    endVH: -80,
+    minBlockHeightVH: 1200,
+    pixelRatio: 2,
+    dataURL: `${__webpack_public_path__}scrubby/stagesprogress/data.json`
   }
 };
 
