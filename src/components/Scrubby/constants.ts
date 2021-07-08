@@ -4,6 +4,7 @@ interface Config {
   endVH?: number;
   minBlockHeightVH?: number;
   pixelRatio?: number;
+  isInset?: boolean;
   backgroundColor?: string;
 }
 
@@ -12,6 +13,7 @@ export const CONFIG_DEFAULTS = {
   endVH: 0,
   minBlockHeightVH: 100,
   pixelRatio: 1,
+  isInset: false,
   backgroundColor: '#fff'
 };
 

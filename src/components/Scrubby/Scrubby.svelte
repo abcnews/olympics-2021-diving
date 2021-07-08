@@ -15,7 +15,10 @@
     throw new Error('Unrecognised ID');
   }
 
-  const { dataURL, startVH, endVH, minBlockHeightVH, pixelRatio, backgroundColor } = { ...CONFIG_DEFAULTS, ...config };
+  const { dataURL, startVH, endVH, minBlockHeightVH, pixelRatio, isInset, backgroundColor } = {
+    ...CONFIG_DEFAULTS,
+    ...config
+  };
 
   let figureEl: HTMLElement;
 
@@ -47,8 +50,12 @@
       ];
 
       progressScale = createLinearScale(domain, [0, 1], true);
-      figureEl.style.setProperty('--scrubby-figure-max-width', `${w / pixelRatio}px`);
-      figureEl.style.setProperty('--scrubby-figure-max-height', `${h / pixelRatio}px`);
+
+      if (isInset) {
+        figureEl.style.setProperty('--scrubby-inset-max-width', `${w / pixelRatio}px`);
+        figureEl.style.setProperty('--scrubby-inset-max-height', `${h / pixelRatio}px`);
+      }
+
       animation.resize();
     };
 
@@ -74,7 +81,7 @@
 </script>
 
 <div class="root" role="none" style={`--background-color: ${backgroundColor}`}>
-  <figure bind:this={figureEl} />
+  <figure bind:this={figureEl} data-is-inset={isInset ? '' : undefined} />
 </div>
 
 <style>
@@ -110,21 +117,9 @@
     margin: 0;
     width: 100%;
     height: 100%;
-    max-width: var(--scrubby-figure-max-width);
-    max-height: var(--scrubby-figure-max-height);
   }
 
   @media (min-width: 61.25rem) {
-    figure {
-      width: 80%;
-      height: 80%;
-    }
-
-    :global(.Block.has-right) figure,
-    :global(.Block.has-left) figure {
-      width: 40%;
-    }
-
     :global(.Block.has-right) figure {
       left: 30%;
     }
@@ -134,7 +129,24 @@
     }
   }
 
-  figure canvas {
+  figure[data-is-inset] {
+    max-width: var(--scrubby-inset-max-width);
+    max-height: var(--scrubby-inset-max-height);
+  }
+
+  @media (min-width: 61.25rem) {
+    figure[data-is-inset] {
+      width: 80%;
+      height: 80%;
+    }
+
+    :global(.Block.has-right) figure[data-is-inset],
+    :global(.Block.has-left) figure[data-is-inset] {
+      width: 40%;
+    }
+  }
+
+  figure :global(canvas) {
     position: absolute;
     top: 0;
     left: 0;
