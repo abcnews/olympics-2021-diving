@@ -25,30 +25,17 @@ export const CONFIGS: { [key: string]: Config } = {
     endVH: -80,
     minBlockHeightVH: 1200,
     pixelRatio: 2,
+    blockBG: `linear-gradient(to bottom, rgba(249,240,199,1) 0%, rgba(117,152,179,1) 100%)`,
     dataURL: `${__webpack_public_path__}scrubby/stages/data.json`
   },
-  stagesblank: {
-    startVH: -80,
-    endVH: -40,
-    minBlockHeightVH: 400,
-    pixelRatio: 2,
-    dataURL: `${__webpack_public_path__}scrubby/stagesblank/data.json`
-  },
-  stagesprogress: {
+  stagesalt: {
     startVH: -40,
     endVH: -80,
     minBlockHeightVH: 1200,
     pixelRatio: 2,
-    blockBG: `linear-gradient(to bottom, rgba(249,240,199,1) 0%, rgba(117,152,179,1) 100%)`,
-    dataURL: `${__webpack_public_path__}scrubby/stagesprogress/data.json`
-  },
-  stagesprogressalt: {
-    startVH: -40,
-    endVH: -80,
-    minBlockHeightVH: 1200,
-    pixelRatio: 2,
-    blockBG: `linear-gradient(to bottom, rgba(117,152,179,1) 0%, rgba(249,240,199,1) 80%, #ccc 80%, #ccc 80.2%, rgba(117,152,179,1) 80.2%, rgba(117,152,179,1) 100%)`,
-    dataURL: `${__webpack_public_path__}scrubby/stagesprogress/data.json`
+    blockBG: `linear-gradient(to bottom, rgba(117,152,179,1) 0%, rgba(249,240,199,1) 80%, rgba(117,152,179,1) 80%, rgba(117,152,179,1) 100%)`,
+    // blockBG: `linear-gradient(to bottom, rgba(117,152,179,1) 0%, rgba(249,240,199,1) 80%, #ccc 80%, #ccc 80.2%, rgba(117,152,179,1) 80.2%, rgba(117,152,179,1) 100%)`,
+    dataURL: `${__webpack_public_path__}scrubby/stages/data.json`
   }
 };
 
