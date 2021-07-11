@@ -5,7 +5,8 @@ interface Config {
   minBlockHeightVH?: number;
   pixelRatio?: number;
   isInset?: boolean;
-  backgroundColor?: string;
+  blockBG?: string;
+  stageBG?: string;
 }
 
 export const CONFIG_DEFAULTS = {
@@ -14,7 +15,8 @@ export const CONFIG_DEFAULTS = {
   minBlockHeightVH: 100,
   pixelRatio: 1,
   isInset: false,
-  backgroundColor: '#fff'
+  blockBG: '#fff',
+  stageBG: 'transparent'
 };
 
 export const CONFIGS: { [key: string]: Config } = {
@@ -37,6 +39,15 @@ export const CONFIGS: { [key: string]: Config } = {
     endVH: -80,
     minBlockHeightVH: 1200,
     pixelRatio: 2,
+    blockBG: `linear-gradient(to bottom, rgba(249,240,199,1) 0%, rgba(117,152,179,1) 100%)`,
+    dataURL: `${__webpack_public_path__}scrubby/stagesprogress/data.json`
+  },
+  stagesprogressalt: {
+    startVH: -40,
+    endVH: -80,
+    minBlockHeightVH: 1200,
+    pixelRatio: 2,
+    blockBG: `linear-gradient(to bottom, rgba(117,152,179,1) 0%, rgba(249,240,199,1) 80%, #ccc 80%, #ccc 80.2%, rgba(117,152,179,1) 80.2%, rgba(117,152,179,1) 100%)`,
     dataURL: `${__webpack_public_path__}scrubby/stagesprogress/data.json`
   }
 };

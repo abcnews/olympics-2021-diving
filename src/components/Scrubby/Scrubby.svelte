@@ -15,7 +15,7 @@
     throw new Error('Unrecognised ID');
   }
 
-  const { dataURL, startVH, endVH, minBlockHeightVH, pixelRatio, isInset, backgroundColor } = {
+  const { dataURL, startVH, endVH, minBlockHeightVH, pixelRatio, isInset, blockBG, stageBG } = {
     ...CONFIG_DEFAULTS,
     ...config
   };
@@ -37,6 +37,7 @@
     const parentBlockEl = figureEl.closest('.Block') as HTMLDivElement;
 
     parentBlockEl.style.setProperty('--scrubby-min-height', `${Math.max(100, minBlockHeightVH)}vh`);
+    parentBlockEl.style.setProperty('--scrubby-block-bg', blockBG);
 
     let progressScale: LinearScale;
 
@@ -80,25 +81,26 @@
   });
 </script>
 
-<div class="root" role="none" style={`--background-color: ${backgroundColor}`}>
+<div class="root" role="none" style={`--scrubby-stage-bg: ${stageBG}`}>
   <figure bind:this={figureEl} data-is-inset={isInset ? '' : undefined} />
 </div>
 
 <style>
   :global(.Block) {
     min-height: var(--scrubby-min-height) !important;
+    background: var(--scrubby-block-bg);
   }
 
   .root {
     position: relative;
     overflow: hidden;
+    background: var(--scrubby-stage-bg);
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
     -webkit-user-drag: none;
-    background-color: var(--background-color, #fff);
   }
 
   :global(.is-fixed) .root {
