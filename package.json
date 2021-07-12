@@ -28,6 +28,7 @@
 		"calipers": "^2.0.1",
 		"calipers-jpeg": "^2.0.0",
 		"calipers-png": "^2.0.0",
+		"calipers-svg": "^2.0.1",
 		"write-json-file": "^4.3.0"
 	},
 	"dependencies": {

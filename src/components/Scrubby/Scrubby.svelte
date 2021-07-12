@@ -15,7 +15,7 @@
     throw new Error('Unrecognised ID');
   }
 
-  const { dataURL, startVH, endVH, minBlockHeightVH, pixelRatio, isInset, blockBG, stageBG } = {
+  const { dataURL, startVH, endVH, minBlockHeightVH, pixelRatio, isInset, isSVG, blockBG, stageBG } = {
     ...CONFIG_DEFAULTS,
     ...config
   };
@@ -28,7 +28,7 @@
       container: figureEl,
       loop: false,
       path: dataURL,
-      renderer: 'canvas',
+      renderer: isSVG ? 'svg' : 'canvas',
       rendererSettings: {
         preserveAspectRatio: 'xMidYMid meet'
       }
