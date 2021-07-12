@@ -22,30 +22,14 @@ export const CONFIG_DEFAULTS = {
 };
 
 export const CONFIGS: { [key: string]: Config } = {
-  stagesvector: {
-    startVH: -40,
-    endVH: -80,
-    minBlockHeightVH: 1200,
-    pixelRatio: 2,
-    isSVG: true,
-    blockBG: `linear-gradient(to bottom, rgba(249,240,199,1) 0%, rgba(117,152,179,1) 100%)`,
-    dataURL: `${__webpack_public_path__}scrubby/stagesvector/data.json`
-  },
   stages: {
     startVH: -40,
     endVH: -80,
     minBlockHeightVH: 1200,
     pixelRatio: 2,
-    blockBG: `linear-gradient(to bottom, rgba(249,240,199,1) 0%, rgba(117,152,179,1) 100%)`,
-    dataURL: `${__webpack_public_path__}scrubby/stages/data.json`
-  },
-  stagesalt: {
-    startVH: -40,
-    endVH: -80,
-    minBlockHeightVH: 1200,
-    pixelRatio: 2,
+    isSVG: true,
     blockBG: `linear-gradient(to bottom, rgba(117,152,179,1) 0%, rgba(249,240,199,1) 80%, rgba(117,152,179,1) 80%, rgba(117,152,179,1) 100%)`,
-    // blockBG: `linear-gradient(to bottom, rgba(117,152,179,1) 0%, rgba(249,240,199,1) 80%, #ccc 80%, #ccc 80.2%, rgba(117,152,179,1) 80.2%, rgba(117,152,179,1) 100%)`,
+    // blockBG: `linear-gradient(to bottom, rgba(249,240,199,1) 0%, rgba(117,152,179,1) 100%)`,
     dataURL: `${__webpack_public_path__}scrubby/stages/data.json`
   }
 };
