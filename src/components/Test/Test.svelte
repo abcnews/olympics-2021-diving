@@ -1,5 +1,13 @@
 <script lang="ts">
-  import { CONFIGS, getDetailedReaction, getInitialReaction, formatHandleValue, formatPipValue } from './constants';
+  import {
+    CONFIGS,
+    getDetailedReaction,
+    getInitialReaction,
+    formatHandleValue,
+    formatPipValue,
+    widont
+  } from './constants';
+  import { fade, fly } from 'svelte/transition';
   import RangeSlider from 'svelte-range-slider-pips';
 
   export let id: string;
@@ -17,7 +25,15 @@
 </script>
 
 <aside>
-  <p>{question}</p>
+  <div class="status" aria-live="assertive">
+    {#if hasGuessed}
+      <p class="reaction" in:fly={{ delay: 250, duration: 500, y: 16 }}>
+        {`${getInitialReaction(values[0], score)} ${widont(getDetailedReaction(values[0], score))}`}
+      </p>
+    {:else}
+      <p out:fly={{ duration: 375, y: -16 }}>{widont(question)}</p>
+    {/if}
+  </div>
   <div class="input">
     <RangeSlider
       bind:values
@@ -33,35 +49,31 @@
       formatter={formatPipValue}
       handleFormatter={formatHandleValue}
     />
-    <div class="hint" role="none">
-      <svg width="9" height="16" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M8 15L0.999999 8L8 1"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-      </svg>
-      <span>Slide</span>
-      <svg width="9" height="16" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M8 15L0.999999 8L8 1"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-      </svg>
-    </div>
-  </div>
-  <button on:click={() => (hasGuessed = true)} disabled={hasGuessed}>Lock it in</button>
-  <div class="reaction">
-    {#if hasGuessed}
-      <p>{getInitialReaction(values[0], score)}</p>
-      <p>{getDetailedReaction(values[0], score)}</p>
+    {#if !hasGuessed}
+      <div class="hint" role="none" out:fade>
+        <svg width="9" height="16" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M8 15L0.999999 8L8 1"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <span>Slide</span>
+        <svg width="9" height="16" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M8 15L0.999999 8L8 1"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </div>
     {/if}
   </div>
+  <button on:click={() => (hasGuessed = true)} disabled={hasGuessed}>Lock it in</button>
 </aside>
 
 <style>
@@ -76,8 +88,10 @@
     font-family: ABCSans, sans-serif;
     text-align: center;
 
-    --range-handle: var(--colour-accent);
-    --range-handle-focus: var(--colour-accent-active);
+    --test-primary-colour: #017987;
+    --test-primary-inactive-colour: #c5e2e6;
+    --range-handle: var(--test-primary-colour);
+    --range-handle-focus: var(--test-primary-colour);
     --range-float-text: #000;
     --range-pip: #fff;
     --range-pip-text: #000;
@@ -91,10 +105,25 @@
     margin-bottom: 0;
   }
 
-  p {
+  .status {
+    position: relative;
+    width: 100%;
+    height: 6.5rem;
+  }
+
+  .status p {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    width: 100%;
     font-family: ABCSerif, sans-serif;
     font-size: 1.5625rem;
     font-weight: bold;
+  }
+
+  .status .reaction {
+    color: var(--test-primary-colour, #000);
   }
 
   .input {
@@ -231,36 +260,21 @@
   button {
     border: 0;
     padding: 0.5rem 2.25rem;
-    background-color: var(--colour-accent, #000);
+    background-color: var(--test-primary-colour, #000);
     color: #fff;
     font-family: inherit;
     font-size: 1.125rem;
-    transition: opacity 0.25s;
+    transition: background-color 0.25s;
     cursor: pointer;
   }
 
   button:hover,
   button:focus {
-    background-color: var(--colour-accent-active, #333);
+    background-color: var(--test-primary-colour, #333);
   }
 
   button[disabled] {
-    background-color: var(--colour-accent-faded, #ccc);
+    background-color: var(--test-primary-inactive-colour, #ccc);
     cursor: default;
-  }
-
-  .reaction {
-    min-height: 16rem;
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translate(0, 0.5rem);
-    }
-  }
-
-  .reaction > * {
-    animation: fadeIn 0.5s 0.25s both ease-out;
   }
 </style>

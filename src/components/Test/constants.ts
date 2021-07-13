@@ -28,9 +28,9 @@ export const getInitialReaction = (estimate: number, score: number) => {
   if (diff === 0) {
     return 'Bang on!';
   } else if (diff <= 1) {
-    return 'Youʼre warm';
+    return 'Youʼre warm.';
   } else if (diff <= 3) {
-    return 'Not quite';
+    return 'Not quite.';
   }
 
   return 'Way off!';
@@ -43,5 +43,10 @@ export const getDetailedReaction = (estimate: number, score: number) => {
     return `Our Olympic judge also gave this dive a ${score}`;
   }
 
-  return `You were ${diff} point${diff === 1 ? '' : 's'} off our Olympic judge, who gave this dive a ${score}`;
+  return `You were ${diff} point${diff === 1 ? '' : 's'} off our Olympic judge`;
 };
+
+const WIDONT_PATTERN = /\s([^\s<]+)\s*$/;
+const WIDONT_REPLACEMENT = '\u00A0$1';
+
+export const widont = (text: string) => text.replace(WIDONT_PATTERN, WIDONT_REPLACEMENT);
