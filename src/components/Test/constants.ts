@@ -51,15 +51,8 @@ export const getInitialReaction = (estimate: number, score: number) => {
   return 'Way off!';
 };
 
-export const getDetailedReaction = (estimate: number, score: number) => {
-  const diff = Math.abs(score - estimate);
-
-  if (diff === 0) {
-    return `Our Olympic judge also gave this dive a ${score}`;
-  }
-
-  return `You were ${diff} point${diff === 1 ? '' : 's'} off our Olympic judge`;
-};
+export const getDetailedReaction = (estimate: number, score: number) =>
+  `Our Olympic judge ${getEstimateScoreDiff(estimate, score) === 0 ? 'also gave this' : 'scored this dive'} a ${score}`;
 
 const WIDONT_PATTERN = /\s([^\s<]+)\s*$/;
 const WIDONT_REPLACEMENT = '\u00A0$1';
