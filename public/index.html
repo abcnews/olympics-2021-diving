@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://www.abc.net.au/res/fonts/abcsans/font.css" />
     <link rel="stylesheet" href="https://www.abc.net.au/res/fonts/abcserif/font.css" />
     <link rel="stylesheet" href="base.css" />
+    <link rel="stylesheet" href="mock-odyssey-styles.css" />
     <script src="index.js"></script>
   </head>
   <body>
@@ -25,6 +26,21 @@
         <div data-mount id="scrubbyIDstages"></div>
       </div>
     </div>
+    <h2>Standalone Test embeds (<code>&lt;iframe&gt;</code> height = 286px)</h2>
+    <ul>
+      <li>
+        <a href="embed-test-nikita.html">Test: Nikita</a>
+        <iframe frameborder="0" style="display: block" src="embed-test-nikita.html" height="286px"></iframe>
+      </li>
+      <li>
+        <a href="embed-test-melissa.html">Test: Melissa</a>
+        <iframe frameborder="0" style="display: block" src="embed-test-melissa.html" height="286px"></iframe>
+      </li>
+      <li>
+        <a href="embed-test-melissa.html">Test: Sam</a>
+        <iframe frameborder="0" style="display: block" src="embed-test-melissa.html" height="286px"></iframe>
+      </li>
+    </ul>
     <script>
       window.dispatchEvent(new CustomEvent('odyssey:api'));
     </script>
