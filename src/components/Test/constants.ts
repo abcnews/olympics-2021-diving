@@ -1,3 +1,14 @@
+export type OneOrTwoValues = [number] | [number, number];
+
+export interface RangeSliderStopEvent extends CustomEvent {
+  detail: {
+    activeHandle: number;
+    startValue: number;
+    value: number;
+    values: [number];
+  };
+}
+
 interface Config {
   question: string;
   score: number;
@@ -18,12 +29,16 @@ export const CONFIGS: { [key: string]: Config } = {
   }
 };
 
-export const formatPipValue = (score: number) => score.toFixed(2);
+export const bAttr = (value: boolean) => (value ? '' : undefined);
 
-export const formatHandleValue = (score: number) => `${score > 0 && score < 10 ? score.toFixed(1) : score} / 10`;
+export const formatScoreAsFraction = (score: number) => `${formatScore(score)} / 10`;
+
+export const formatScore = (score: number) => (score > 0 && score < 10 ? score.toFixed(1) : String(score));
+
+export const getEstimateScoreDiff = (estimate: number, score: number) => Math.abs(score - estimate);
 
 export const getInitialReaction = (estimate: number, score: number) => {
-  const diff = Math.abs(score - estimate);
+  const diff = getEstimateScoreDiff(estimate, score);
 
   if (diff === 0) {
     return 'Bang on!';
