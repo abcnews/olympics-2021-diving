@@ -6,7 +6,6 @@
     getEstimateScoreDiff,
     getInitialReaction,
     formatScore,
-    formatScoreAsFraction,
     widont
   } from './constants';
   import type { OneOrTwoValues, RangeSliderStopEvent } from './constants';
@@ -65,7 +64,7 @@
       first="label"
       last="label"
       springValues={{ stiffness: 1, damping: 1 }}
-      handleFormatter={hasGuessed ? formatScore : formatScoreAsFraction}
+      handleFormatter={formatScore}
     />
     {#if !hasGuessed}
       <div class="hint" role="none" out:fade={{ duration: 125 }}>
@@ -108,6 +107,7 @@
 
     --test-primary-colour: #017987;
     --test-primary-inactive-colour: #c5e2e6;
+    --range-slider: var(--test-primary-colour);
     --range-handle: var(--test-primary-colour);
     --range-handle-focus: var(--test-primary-colour);
     --range-handle-inactive: var(--test-primary-colour);
@@ -180,84 +180,153 @@
   }
 
   .input :global(.rangeSlider) :global(.rangeHandle) {
+    top: -50%;
     width: 1.5rem;
-    height: 1.5rem;
+    height: 2.5rem;
+  }
+
+  @keyframes paddleUpClockwise {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -50%) rotate(-30deg);
+    }
+  }
+
+  @keyframes paddleUpAnticlockwise {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -50%) rotate(30deg);
+    }
+  }
+
+  .input[data-has-guessed][data-is-estimate-higher-than-score] :global(.rangeHandle):nth-last-child(4),
+  .input[data-has-guessed]:not([data-is-estimate-higher-than-score]) :global(.rangeHandle):nth-last-child(3) {
+    --slider: #000;
+    z-index: 1 !important;
+    transform-origin: 50% 100%;
+  }
+
+  .input[data-has-guessed][data-is-estimate-higher-than-score] :global(.rangeHandle):nth-last-child(4) {
+    animation: paddleUpClockwise 0.5s;
+  }
+
+  .input[data-has-guessed]:not([data-is-estimate-higher-than-score]) :global(.rangeHandle):nth-last-child(3) {
+    animation: paddleUpAnticlockwise 0.5s;
+  }
+
+  .input :global(.rangeSlider) :global(.rangeHandle)::before {
+    opacity: 1 !important;
+    transform: translate(-50%, -50%);
     top: 50%;
-  }
-
-  .input :global(.rangeSlider.disabled) :global(.rangeHandle) {
-    width: 0.25rem;
-    height: 1.25rem;
-  }
-
-  .input :global(.rangeSlider) :global(.rangeHandle.hoverable.press)::before,
-  .input :global(.rangeSlider) :global(.rangeHandle.hoverable.press:hover)::before {
-    box-shadow: 0 0 0 10px var(--handle-border);
+    right: auto;
+    left: 50%;
+    bottom: auto;
+    border: 0.0625rem solid #fff;
+    border-radius: 0 !important;
+    width: 0.4375rem;
+    height: 100%;
+    background-color: var(--slider);
+    box-shadow: none !important;
+    transition: none;
   }
 
   .input :global(.rangeNub) {
+    transform: none !important;
+    border-radius: 0 !important;
+    background-color: transparent;
     cursor: pointer;
-  }
-
-  .input :global(.rangeHandle)::before,
-  .input :global(.rangeNub) {
-    border: 0.125rem solid #fff;
+    transition: none;
   }
 
   .input :global(.rangeNub),
-  .input :global(.rangeHandle.active) :global(.rangeNub) {
-    background-color: var(--test-primary-colour);
+  .input :global(.rangeSlider.disabled) :global(.rangeNub),
+  .input :global(.rangeSlider.focus) :global(.rangeNub),
+  .input :global(.rangeSlider) :global(.rangeHandle.active) :global(.rangeNub) {
+    background-color: transparent;
   }
 
   .input :global(.rangeSlider.disabled) :global(.rangeNub) {
-    transform: none !important;
-    border: 0;
-    border-radius: 0 !important;
-    background-color: #000;
-    transition: none;
+    cursor: default;
   }
 
-  .input :global(.rangeFloat) {
-    opacity: 1;
-    top: -0.2em;
-    font-size: 0.9375rem;
-    line-height: 1.2;
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
   }
 
-  .input :global(.rangeFloat),
-  .input :global(.rangeSlider.focus) :global(.rangeFloat) {
-    background-color: transparent;
-    transition: none;
-  }
-
-  .input[data-is-estimate-within-one-point-of-score] :global(.rangeHandle):nth-last-child(4) :global(.rangeFloat) {
-    transform: translate(-100%, -100%);
-  }
-
-  .input[data-is-estimate-within-one-point-of-score] :global(.rangeHandle):nth-last-child(3) :global(.rangeFloat) {
-    transform: translate(0, -100%);
-  }
-
-  .input[data-has-guessed] :global(.rangeFloat)::before {
+  .input[data-has-guessed] :global(.rangeNub)::before {
     content: 'YOU';
-    transform: translate(-50%, -75%);
+    transform: translate(-50%, 0%);
     position: absolute;
-    top: 0;
+    bottom: -1.25rem;
     left: 50%;
+    color: var(--slider);
+    font-size: 0.75rem;
+    font-weight: bold;
     letter-spacing: -0.025em;
+    animation: fadeIn 0.5s 0.25s both;
   }
 
   .input[data-has-guessed][data-is-estimate-higher-than-score]
     :global(.rangeHandle):nth-last-child(4)
-    :global(.rangeFloat)::before,
+    :global(.rangeNub)::before,
   .input[data-has-guessed]:not([data-is-estimate-higher-than-score])
     :global(.rangeHandle):nth-last-child(3)
-    :global(.rangeFloat)::before {
+    :global(.rangeNub)::before {
     content: 'JUDGE';
+    animation-delay: 0.5s;
   }
 
-  .input[data-has-guessed] :global(.rangeHandle):nth-last-child(2) :global(.rangeFloat)::before {
+  .input[data-has-guessed] :global(.rangeHandle):nth-last-child(2) :global(.rangeNub)::before {
     content: 'BOTH';
+  }
+
+  .input[data-is-estimate-within-one-point-of-score]
+    :global(.rangeHandle):nth-last-child(4)
+    :global(.rangeNub)::before {
+    transform: translate(-87.5%, 0);
+  }
+
+  .input[data-is-estimate-within-one-point-of-score]
+    :global(.rangeHandle):nth-last-child(3)
+    :global(.rangeNub)::before {
+    transform: translate(-12.5%, 0);
+  }
+
+  .input :global(.rangeFloat),
+  .input :global(.rangeSlider) :global(.rangeHandle.active) :global(.rangeFloat),
+  .input :global(.rangeHandle.hoverable):hover :global(.rangeFloat),
+  .input :global(.rangeSlider.focus) :global(.rangeFloat) {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+    top: 0.125rem;
+    background-color: transparent;
+    transition: none;
+  }
+
+  .input :global(.rangeFloat) {
+    display: inline-block;
+    border-radius: 0;
+    padding: 0;
+    width: 1.75rem;
+    height: 1.75rem;
+    color: #fff;
+    font-size: 0.8125rem;
+    line-height: 2.25;
+    text-align: center;
+  }
+
+  .input :global(.rangeFloat)::before {
+    content: '';
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    background-color: var(--slider);
   }
 
   .input :global(.rangeBar) {
@@ -325,8 +394,9 @@
     bottom: -1rem;
     left: 50%;
     color: var(--test-primary-colour);
-    font-size: 0.6875rem;
+    font-size: 0.75rem;
     font-weight: bold;
+    text-transform: uppercase;
     pointer-events: none;
   }
 

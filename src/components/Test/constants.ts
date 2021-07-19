@@ -31,8 +31,6 @@ export const CONFIGS: { [key: string]: Config } = {
 
 export const bAttr = (value: boolean) => (value ? '' : undefined);
 
-export const formatScoreAsFraction = (score: number) => `${formatScore(score)} / 10`;
-
 export const formatScore = (score: number) => (score > 0 && score < 10 ? score.toFixed(1) : String(score));
 
 export const getEstimateScoreDiff = (estimate: number, score: number) => Math.abs(score - estimate);
