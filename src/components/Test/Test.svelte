@@ -180,9 +180,9 @@
   }
 
   .input :global(.rangeSlider) :global(.rangeHandle) {
-    top: -50%;
+    top: -90%;
     width: 1.5rem;
-    height: 2.5rem;
+    height: 2.25rem;
   }
 
   @keyframes paddleUpClockwise {
@@ -202,7 +202,7 @@
   .input[data-has-guessed][data-is-estimate-higher-than-score] :global(.rangeHandle):nth-last-child(4),
   .input[data-has-guessed]:not([data-is-estimate-higher-than-score]) :global(.rangeHandle):nth-last-child(3) {
     --slider: #000;
-    z-index: 1 !important;
+    z-index: 4 !important;
     transform-origin: 50% 100%;
   }
 
@@ -306,15 +306,25 @@
   }
 
   .input :global(.rangeFloat) {
-    display: inline-block;
     border-radius: 0;
     padding: 0;
-    width: 1.75rem;
-    height: 1.75rem;
+    width: 1.875rem;
+    height: 1.875rem;
     color: #fff;
     font-size: 0.8125rem;
-    line-height: 2.25;
+    line-height: 2.5;
     text-align: center;
+    letter-spacing: 0.025em;
+    transition: color 0.25s;
+  }
+
+  .input[data-is-estimate-within-one-point-of-score]:not([data-is-estimate-higher-than-score])
+    :global(.rangeHandle):nth-last-child(4)
+    :global(.rangeFloat),
+  .input[data-is-estimate-within-one-point-of-score][data-is-estimate-higher-than-score]
+    :global(.rangeHandle):nth-last-child(3)
+    :global(.rangeFloat) {
+    color: transparent;
   }
 
   .input :global(.rangeFloat)::before {
@@ -323,9 +333,22 @@
     position: absolute;
     top: 0;
     left: 0;
+    border: 0.0625rem solid #fff;
     border-radius: 50%;
     width: 100%;
     height: 100%;
+    background-color: var(--slider);
+  }
+
+  .input :global(.rangeSlider) :global(.rangeHandle)::after {
+    content: '';
+    transform: translate(-50%, -100%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: block;
+    width: 0.3125rem;
+    height: 0.3125rem;
     background-color: var(--slider);
   }
 
