@@ -22,6 +22,7 @@
 
   const { question, score } = config;
 
+  let el: HTMLElement;
   let values: OneOrTwoValues = [5];
   let estimate: number;
 
@@ -32,10 +33,21 @@
   const guess = () => {
     estimate = values[0];
     values = ([...new Set([estimate, score])] as OneOrTwoValues).sort((a, b) => a - b);
+
+    // Clear Odyssey's min-height on the component's mount point
+    if (el.parentElement && el.parentElement.style.getPropertyValue('min-height').length > 0) {
+      el.parentElement.style.removeProperty('min-height');
+    }
+  };
+
+  const continueReading = () => {
+    const { bottom } = el.getBoundingClientRect();
+
+    window.scrollBy(0, bottom);
   };
 </script>
 
-<aside>
+<aside bind:this={el} data-has-guessed={bAttr(hasGuessed)}>
   <div class="status" aria-live="assertive">
     {#if hasGuessed}
       <p class="reaction" in:fly={{ delay: 250, duration: 500, y: 16 }}>
@@ -47,7 +59,6 @@
   </div>
   <div
     class="input"
-    data-has-guessed={bAttr(hasGuessed)}
     data-is-estimate-within-half-point-of-score={bAttr(isEstimateWithinHalfPointOfScore)}
     data-is-estimate-higher-than-score={bAttr(isEstimateHigherThanScore)}
   >
@@ -91,6 +102,11 @@
     {/if}
   </div>
   <button on:click={guess} disabled={hasGuessed}>Lock it in</button>
+  {#if !hasGuessed}
+    <footer>
+      …or <button on:click={continueReading}>continue reading</button>…
+    </footer>
+  {/if}
 </aside>
 
 <style>
@@ -100,6 +116,7 @@
     justify-content: center;
     align-items: center;
     margin: 0 auto;
+    padding-bottom: 50vh;
     width: 100%;
     max-width: 21.5625rem;
     font-family: ABCSans, sans-serif;
@@ -114,6 +131,11 @@
     --range-float-text: #000;
     --range-pip: #fff;
     --range-pip-text: #000;
+  }
+
+  :global(:last-child) > aside,
+  aside[data-has-guessed] {
+    padding-bottom: 0;
   }
 
   aside > * {
@@ -199,18 +221,18 @@
     }
   }
 
-  .input[data-has-guessed][data-is-estimate-higher-than-score] :global(.rangeHandle):nth-last-child(4),
-  .input[data-has-guessed]:not([data-is-estimate-higher-than-score]) :global(.rangeHandle):nth-last-child(3) {
+  [data-has-guessed] > .input[data-is-estimate-higher-than-score] :global(.rangeHandle):nth-last-child(4),
+  [data-has-guessed] > .input:not([data-is-estimate-higher-than-score]) :global(.rangeHandle):nth-last-child(3) {
     --slider: #000;
     z-index: 4 !important;
     transform-origin: 50% 100%;
   }
 
-  .input[data-has-guessed][data-is-estimate-higher-than-score] :global(.rangeHandle):nth-last-child(4) {
+  [data-has-guessed] > .input[data-is-estimate-higher-than-score] :global(.rangeHandle):nth-last-child(4) {
     animation: paddleUpClockwise 0.5s;
   }
 
-  .input[data-has-guessed]:not([data-is-estimate-higher-than-score]) :global(.rangeHandle):nth-last-child(3) {
+  [data-has-guessed] > .input:not([data-is-estimate-higher-than-score]) :global(.rangeHandle):nth-last-child(3) {
     animation: paddleUpAnticlockwise 0.5s;
   }
 
@@ -255,7 +277,7 @@
     }
   }
 
-  .input[data-has-guessed] :global(.rangeNub)::before {
+  [data-has-guessed] > .input :global(.rangeNub)::before {
     content: 'YOU';
     transform: translate(-50%, 0%);
     position: absolute;
@@ -268,17 +290,19 @@
     animation: fadeIn 0.5s 0.25s both;
   }
 
-  .input[data-has-guessed][data-is-estimate-higher-than-score]
+  [data-has-guessed]
+    > .input[data-is-estimate-higher-than-score]
     :global(.rangeHandle):nth-last-child(4)
     :global(.rangeNub)::before,
-  .input[data-has-guessed]:not([data-is-estimate-higher-than-score])
+  [data-has-guessed]
+    > .input:not([data-is-estimate-higher-than-score])
     :global(.rangeHandle):nth-last-child(3)
     :global(.rangeNub)::before {
     content: 'JUDGE';
     animation-delay: 0.5s;
   }
 
-  .input[data-has-guessed] :global(.rangeHandle):nth-last-child(2) :global(.rangeNub)::before {
+  [data-has-guessed] > .input :global(.rangeHandle):nth-last-child(2) :global(.rangeNub)::before {
     content: 'BOTH';
   }
 
@@ -451,5 +475,25 @@
   button[disabled] {
     background-color: var(--test-primary-inactive-colour, #ccc);
     cursor: default;
+  }
+
+  footer {
+    font-size: 0.875rem;
+  }
+
+  :global(:last-child) > aside footer {
+    display: none;
+  }
+
+  footer button {
+    padding: 0;
+    background-color: transparent;
+    color: var(--test-primary-colour, #000);
+    font-size: 1em;
+  }
+
+  footer button:hover,
+  footer button:focus {
+    background-color: transparent;
   }
 </style>
