@@ -22,22 +22,13 @@ export const CONFIG_DEFAULTS = {
 };
 
 export const CONFIGS: { [key: string]: Config } = {
-  shadow: {
-    startVH: -40,
-    endVH: -80,
-    minBlockHeightVH: 1200,
-    pixelRatio: 2,
-    isSVG: true,
-    blockBG: `linear-gradient(to bottom, #73beff, #d4ebff 80%, #80e3f9 80%)`,
-    dataURL: `${__webpack_public_path__}scrubby/shadow/data.json`
-  },
   stages: {
     startVH: -40,
     endVH: -80,
     minBlockHeightVH: 1200,
     pixelRatio: 2,
     isSVG: true,
-    blockBG: `linear-gradient(to bottom, rgba(117,152,179,1) 0%, rgba(249,240,199,1) 80%, rgba(117,152,179,1) 80%, rgba(117,152,179,1) 100%)`,
+    blockBG: `linear-gradient(to bottom, #73beff, #d4ebff 80%, #80e3f9 80%)`,
     dataURL: `${__webpack_public_path__}scrubby/stages/data.json`
   }
 };

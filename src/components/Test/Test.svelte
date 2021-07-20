@@ -8,7 +8,7 @@
     formatScore,
     widont
   } from './constants';
-  import type { OneOrTwoValues, RangeSliderStopEvent } from './constants';
+  import type { OneOrTwoValues } from './constants';
   import { fade, fly } from 'svelte/transition';
   import RangeSlider from 'svelte-range-slider-pips';
 
