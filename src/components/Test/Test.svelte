@@ -27,7 +27,7 @@
 
   $: hasGuessed = typeof estimate === 'number';
   $: isEstimateHigherThanScore = hasGuessed && estimate > score;
-  $: isEstimateWithinOnePointOfScore = hasGuessed && getEstimateScoreDiff(estimate, score) <= 1;
+  $: isEstimateWithinHalfPointOfScore = hasGuessed && getEstimateScoreDiff(estimate, score) <= 0.5;
 
   const guess = () => {
     estimate = values[0];
@@ -48,7 +48,7 @@
   <div
     class="input"
     data-has-guessed={bAttr(hasGuessed)}
-    data-is-estimate-within-one-point-of-score={bAttr(isEstimateWithinOnePointOfScore)}
+    data-is-estimate-within-half-point-of-score={bAttr(isEstimateWithinHalfPointOfScore)}
     data-is-estimate-higher-than-score={bAttr(isEstimateHigherThanScore)}
   >
     <RangeSlider
@@ -282,13 +282,13 @@
     content: 'BOTH';
   }
 
-  .input[data-is-estimate-within-one-point-of-score]
+  .input[data-is-estimate-within-half-point-of-score]
     :global(.rangeHandle):nth-last-child(4)
     :global(.rangeNub)::before {
     transform: translate(-87.5%, 0);
   }
 
-  .input[data-is-estimate-within-one-point-of-score]
+  .input[data-is-estimate-within-half-point-of-score]
     :global(.rangeHandle):nth-last-child(3)
     :global(.rangeNub)::before {
     transform: translate(-12.5%, 0);
@@ -312,16 +312,16 @@
     height: 1.875rem;
     color: #fff;
     font-size: 0.8125rem;
-    line-height: 2.5;
+    line-height: 2.375;
     text-align: center;
     letter-spacing: 0.025em;
     transition: color 0.25s;
   }
 
-  .input[data-is-estimate-within-one-point-of-score]:not([data-is-estimate-higher-than-score])
+  .input[data-is-estimate-within-half-point-of-score]:not([data-is-estimate-higher-than-score])
     :global(.rangeHandle):nth-last-child(4)
     :global(.rangeFloat),
-  .input[data-is-estimate-within-one-point-of-score][data-is-estimate-higher-than-score]
+  .input[data-is-estimate-within-half-point-of-score][data-is-estimate-higher-than-score]
     :global(.rangeHandle):nth-last-child(3)
     :global(.rangeFloat) {
     color: transparent;
