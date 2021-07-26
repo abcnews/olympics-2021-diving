@@ -1,0 +1,7 @@
+/* Remove scrim from right/left aligned Ease Frame text on large screens */
+@media (min-width: 1023px) {
+  [data-mount] > [data-inset='left'] > div > div::before,
+  [data-mount] > [data-inset='right'] > div > div::before {
+    content: none;
+  }
+}

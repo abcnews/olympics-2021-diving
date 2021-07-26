@@ -1,6 +1,7 @@
 import acto from '@abcnews/alternating-case-to-object';
 import { whenOdysseyLoaded } from '@abcnews/env-utils';
 import { getMountValue, selectMounts } from '@abcnews/mount-utils';
+import './global.css';
 import Hero from './components/Hero/Hero.svelte';
 import Scrubby from './components/Scrubby/Scrubby.svelte';
 import Test from './components/Test/Test.svelte';
