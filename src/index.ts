@@ -1,10 +1,31 @@
 import acto from '@abcnews/alternating-case-to-object';
 import { whenOdysseyLoaded } from '@abcnews/env-utils';
 import { getMountValue, selectMounts } from '@abcnews/mount-utils';
+import Hero from './components/Hero/Hero.svelte';
 import Scrubby from './components/Scrubby/Scrubby.svelte';
 import Test from './components/Test/Test.svelte';
 
 whenOdysseyLoaded.then(() => {
+  selectMounts('hero').forEach(mountEl => {
+    const { parentElement } = mountEl;
+
+    if (!parentElement) {
+      return;
+    }
+
+    const titleEl = parentElement.querySelector('h1');
+
+    if (titleEl && titleEl.parentElement === parentElement) {
+      mountEl.removeAttribute('class');
+      parentElement.insertBefore(mountEl, titleEl);
+    }
+
+    new Hero({
+      target: mountEl,
+      props: {}
+    });
+  });
+
   selectMounts('scrubby').forEach(mountEl => {
     const blockEl = mountEl.closest('.Block');
 

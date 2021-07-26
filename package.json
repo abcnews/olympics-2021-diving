@@ -34,7 +34,7 @@
 		"@abcnews/env-utils": "^3.0.0",
 		"@abcnews/mount-utils": "^2.0.0",
 		"lottie-web": "^5.7.11",
-		"svelte": "^3.31.2",
+		"svelte": "^3.40.3",
 		"svelte-range-slider-pips": "^1.7.0"
 	}
 }
