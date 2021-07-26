@@ -1,6 +1,33 @@
+@font-face {
+  font-family: 'ABCSans';
+  font-style: normal;
+  font-weight: normal;
+  src: url('fonts/abcsans-regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'ABCSans';
+  font-style: normal;
+  font-weight: bold;
+  src: url('fonts/abcsans-bold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'ABCSerif';
+  font-style: normal;
+  font-weight: normal;
+  src: url('fonts/abcserif-regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'ABCSerif';
+  font-style: normal;
+  font-weight: bold;
+  src: url('fonts/abcserif-bold.woff2') format('woff2');
+}
+
 html {
   box-sizing: border-box;
-  font-family: ABCSans, sans-serif;
 }
 
 html *,

@@ -31,7 +31,10 @@ whenOdysseyLoaded.then(() => {
     mountEl =>
       new Test({
         target: mountEl,
-        props: acto(getMountValue(mountEl))
+        props: {
+          ...acto(getMountValue(mountEl)),
+          hasSubsequentContent: true
+        }
       })
   );
 });

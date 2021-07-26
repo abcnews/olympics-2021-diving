@@ -2,8 +2,9 @@
 /node_modules
 
 # output
-/.build
+/.build*
 /.deploy
+/olympics-2021-diving-*
 
 # misc
 .DS_Store

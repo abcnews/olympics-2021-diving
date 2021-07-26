@@ -1,6 +1,15 @@
+const { version } = require('./package.json');
+
 module.exports = {
   type: 'svelte',
   build: {
-    entry: ['index', 'embed-test']
-  }
+    entry: process.env.IS_FOR_APPLE_NEWS ? ['embeds'] : ['index', 'embeds']
+  },
+  webpack: process.env.IS_FOR_APPLE_NEWS
+    ? config => {
+        delete config.devtool;
+
+        return config;
+      }
+    : undefined
 };

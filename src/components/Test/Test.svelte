@@ -13,6 +13,7 @@
   import RangeSlider from 'svelte-range-slider-pips';
 
   export let id: string;
+  export let hasSubsequentContent: boolean = false;
 
   const config = CONFIGS[id];
 
@@ -102,7 +103,7 @@
     {/if}
   </div>
   <button on:click={guess} disabled={hasGuessed}>Lock it in</button>
-  {#if !hasGuessed}
+  {#if hasSubsequentContent && !hasGuessed}
     <footer>
       …or <button on:click={continueReading}>continue reading</button>…
     </footer>
@@ -111,6 +112,16 @@
 
 <style>
   aside {
+    --test-primary-colour: #017987;
+    --test-primary-inactive-colour: #c5e2e6;
+    --range-slider: var(--test-primary-colour);
+    --range-handle: var(--test-primary-colour);
+    --range-handle-focus: var(--test-primary-colour);
+    --range-handle-inactive: var(--test-primary-colour);
+    --range-float-text: #000;
+    --range-pip: #fff;
+    --range-pip-text: #000;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -121,19 +132,9 @@
     max-width: 21.5625rem;
     font-family: ABCSans, sans-serif;
     text-align: center;
-
-    --test-primary-colour: #017987;
-    --test-primary-inactive-colour: #c5e2e6;
-    --range-slider: var(--test-primary-colour);
-    --range-handle: var(--test-primary-colour);
-    --range-handle-focus: var(--test-primary-colour);
-    --range-handle-inactive: var(--test-primary-colour);
-    --range-float-text: #000;
-    --range-pip: #fff;
-    --range-pip-text: #000;
   }
 
-  :global(:last-child) > aside,
+  :global(:last-of-type) > aside,
   aside[data-has-guessed] {
     padding-bottom: 0;
   }
