@@ -28,7 +28,7 @@ export const CONFIGS: { [key: string]: Config } = {
     minBlockHeightVH: 1200,
     pixelRatio: 2,
     isSVG: true,
-    blockBG: `linear-gradient(to bottom, #73beff, #d4ebff 80%, #80e3f9 80%)`,
+    blockBG: `linear-gradient(to bottom, #86f1f7, #f9f9f9 80%, #86f1f7 80%)`,
     dataURL: `${__webpack_public_path__}scrubby/stages/data.json`
   }
 };
