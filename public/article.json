@@ -1,0 +1,64 @@
+{
+  "identifier": "divingScoringEmbeds",
+  "version": "1.8",
+  "language": "en",
+  "title": "Diving Scoring Embeds",
+  "layout": {
+    "columns": 20,
+    "width": 1024,
+    "margin": 60,
+    "gutter": 20
+  },
+  "components": [
+    {
+      "role": "title",
+      "text": "Diving Scoring Embeds",
+      "layout": "titleLayout"
+    },
+    {
+      "role": "heading2",
+      "text": "Nikita Embed",
+      "layout": "headingLayout"
+    },
+    {
+      "role": "embed",
+      "URL": "bundle://embed-test-nikita.html",
+      "layout": "embedLayout"
+    },
+    {
+      "role": "heading2",
+      "text": "Melissa Embed",
+      "layout": "headingLayout"
+    },
+    {
+      "role": "embed",
+      "URL": "bundle://embed-test-melissa.html",
+      "layout": "embedLayout"
+    },
+    {
+      "role": "heading2",
+      "text": "Sam Embed",
+      "layout": "headingLayout"
+    },
+    {
+      "role": "embed",
+      "URL": "bundle://embed-test-sam.html",
+      "layout": "embedLayout"
+    }
+  ],
+  "componentLayouts": {
+    "titleLayout": {
+      "margin": {
+        "top": 10
+      }
+    },
+    "headingLayout": {
+      "margin": {
+        "top": 10
+      }
+    },
+    "embedLayout": {
+      "suggestedHeight": 286
+    }
+  }
+}
