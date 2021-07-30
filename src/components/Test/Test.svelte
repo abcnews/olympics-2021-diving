@@ -145,7 +145,7 @@
       --test-text: #fff;
       --test-text-inverted: #000;
       --test-primary-colour: #86f1f7;
-      --test-primary-inactive-colour: #949494;
+      --test-primary-inactive-colour: #1b3031;
     }
   }
 
