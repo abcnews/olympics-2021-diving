@@ -8,6 +8,8 @@ interface Config {
   isSVG?: boolean;
   blockBG?: string;
   stageBG?: string;
+  accessibleTitle?: string;
+  accessibleDescription?: string;
 }
 
 export const CONFIG_DEFAULTS = {
@@ -29,7 +31,15 @@ export const CONFIGS: { [key: string]: Config } = {
     pixelRatio: 2,
     isSVG: true,
     blockBG: `linear-gradient(to bottom, #86f1f7, #f9f9f9 80%, #86f1f7 80%)`,
-    dataURL: `${__webpack_public_path__}scrubby/stages/data.json`
+    dataURL: `${__webpack_public_path__}scrubby/stages/data.json`,
+    accessibleTitle: 'Illustration: Five stages of a reverse two-and-a-half somersault tuck',
+    accessibleDescription: [
+      '1. The start position is all about posture. Head must be in line with the body; straight elbows; feet together.',
+      '2. Next is take-off. It must be bold, high and confident; head must stay a safe distance from the board.',
+      '3. Then the flight phase. Knees must be pulled into the chest.',
+      '4. The  next element is the entry. Body should become vertical.',
+      '5. Finally to finish, the splash. The aim is a "rip entry", with no splash at all.'
+    ].join(' ')
   }
 };
 

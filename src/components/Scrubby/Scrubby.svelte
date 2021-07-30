@@ -15,7 +15,19 @@
     throw new Error('Unrecognised ID');
   }
 
-  const { dataURL, startVH, endVH, minBlockHeightVH, pixelRatio, isInset, isSVG, blockBG, stageBG } = {
+  const {
+    dataURL,
+    startVH,
+    endVH,
+    minBlockHeightVH,
+    pixelRatio,
+    isInset,
+    isSVG,
+    blockBG,
+    stageBG,
+    accessibleTitle,
+    accessibleDescription
+  } = {
     ...CONFIG_DEFAULTS,
     ...config
   };
@@ -30,7 +42,9 @@
       path: dataURL,
       renderer: isSVG ? 'svg' : 'canvas',
       rendererSettings: {
-        preserveAspectRatio: 'xMidYMid meet'
+        preserveAspectRatio: 'xMidYMid meet',
+        title: accessibleTitle,
+        description: accessibleDescription
       }
     });
 
@@ -74,6 +88,18 @@
     };
 
     animation.addEventListener('data_ready', () => {
+      const rendererEl = figureEl.firstElementChild;
+
+      if (rendererEl) {
+        rendererEl.setAttribute('role', accessibleTitle || accessibleDescription ? 'img' : 'none');
+
+        const svgRendererElFirstVisibleChild = rendererEl.querySelector('g');
+
+        if (svgRendererElFirstVisibleChild) {
+          svgRendererElFirstVisibleChild.setAttribute('role', 'presentation');
+        }
+      }
+
       updateAll();
       window.addEventListener('resize', () => updateAll());
       window.addEventListener('scroll', () => updateProgress());
@@ -81,7 +107,7 @@
   });
 </script>
 
-<div class="root" role="none" style={`--scrubby-stage-bg: ${stageBG}`}>
+<div class="root" style={`--scrubby-stage-bg: ${stageBG}`}>
   <figure bind:this={figureEl} data-is-inset={isInset ? '' : undefined} />
 </div>
 
