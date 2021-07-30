@@ -8,7 +8,7 @@ const { name, version } = require('../package.json');
 
 const PROJECT_PATH = join(__dirname, '..');
 const BUILD_PATH = join(PROJECT_PATH, '.build');
-const GLOBS_TO_DELETE = ['hero.svg', 'index.html', 'mock-odyssey-styles.css', 'scrubby'];
+const GLOBS_TO_DELETE = ['hero.svg', 'index.html', 'index.html.css', 'scrubby'];
 
 const run = async () => {
   console.log('Bundling for Apple News');
