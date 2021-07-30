@@ -117,19 +117,7 @@
     --test-text-inverted: #fcfcfc;
     --test-primary-colour: #017987;
     --test-primary-inactive-colour: #c5e2e6;
-    --test-scale-gradient: linear-gradient(
-      to right,
-      #5b5b5b,
-      #5b5b5b 20%,
-      #7b7b7b 20%,
-      #7b7b7b 40%,
-      #979797 40%,
-      #979797 60%,
-      #b1b1b1 60%,
-      #b1b1b1 80%,
-      #d7d7d7 80%,
-      #d7d7d7
-    );
+    --test-scale-colour: #949494;
 
     --range-slider: var(--test-primary-colour);
     --range-handle: var(--test-primary-colour);
@@ -157,20 +145,7 @@
       --test-text: #fff;
       --test-text-inverted: #000;
       --test-primary-colour: #86f1f7;
-      --test-primary-inactive-colour: #979797;
-      --test-scale-gradient: linear-gradient(
-        to right,
-        #393939,
-        #393939 20%,
-        #4a4a4a 20%,
-        #4a4a4a 40%,
-        #5b5b5b 40%,
-        #5b5b5b 60%,
-        #7b7b7b 60%,
-        #7b7b7b 80%,
-        #979797 80%,
-        #979797
-      );
+      --test-primary-inactive-colour: #949494;
     }
   }
 
@@ -223,7 +198,7 @@
     margin: 1em;
     border-radius: 0;
     height: 0.375rem;
-    background-image: var(--test-scale-gradient);
+    background-color: var(--test-scale-colour);
   }
 
   .input :global(.rangeSlider.disabled) {
