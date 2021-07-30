@@ -342,15 +342,6 @@
     transition: color 0.25s;
   }
 
-  .input[data-is-estimate-within-point-of-score]:not([data-is-estimate-higher-than-score])
-    :global(.rangeHandle):nth-last-child(4)
-    :global(.rangeFloat),
-  .input[data-is-estimate-within-point-of-score][data-is-estimate-higher-than-score]
-    :global(.rangeHandle):nth-last-child(3)
-    :global(.rangeFloat) {
-    color: transparent;
-  }
-
   .input :global(.rangeFloat)::before {
     content: '';
     z-index: -1;
