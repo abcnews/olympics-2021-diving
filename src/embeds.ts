@@ -1,22 +1,41 @@
 import Test from './components/Test/Test.svelte';
 
-interface Configuration {
+interface ANConfiguration {
   canvasSize: {
     width: number;
+    height: number;
   };
+  contentFrame: {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  };
+  dataSources: {
+    [key: string]: string;
+  };
+  dynamicType: string;
+  locale: string;
 }
 
-type PresentationState = 'presented' | string;
+enum ANPresentationState {
+  UNKNOWN = 'unknown',
+  PRESENTED = 'presented',
+  NOTPRESENTED = 'notpresented'
+}
 
-interface Message {
+interface ANMessage {
   name: 'update' | 'presentable';
   height: number;
 }
 
-interface ConfigurationChangeEventDetail {}
+interface ANConfigurationChangeEventDetail {
+  newConfiguration: ANConfiguration;
+  oldConfiguration: ANConfiguration;
+}
 
-interface PresentationStateChangeEventDetail {
-  newPresentationState: PresentationState;
+interface ANPresentationStateChangeEventDetail {
+  newPresentationState: ANPresentationState;
 }
 
 declare global {
@@ -27,13 +46,13 @@ declare global {
 
   interface Window {
     applenews?: {
-      presentationState: PresentationState;
-      configuration: Configuration;
+      presentationState: ANPresentationState;
+      configuration: ANConfiguration;
     };
     webkit?: {
       messageHandlers: {
         applenews: {
-          postMessage: (message: Message) => void;
+          postMessage: (message: ANMessage) => void;
         };
       };
     };
@@ -64,7 +83,7 @@ function renderToCanvas(canvas: HTMLElement) {
   }
 }
 
-function postMessage(message: Message) {
+function postMessage(message: ANMessage) {
   if (window.webkit) {
     window.webkit.messageHandlers.applenews.postMessage(message);
   }
@@ -78,9 +97,10 @@ function render() {
   renderToCanvas(canvas);
 
   const height = canvas.offsetHeight;
-  const messageType = presentationState && presentationState === 'presented' ? 'update' : 'presentable';
+  const messageType =
+    presentationState && presentationState === ANPresentationState.PRESENTED ? 'update' : 'presentable';
 
-  const message: Message = {
+  const message: ANMessage = {
     name: messageType,
     height
   };
@@ -88,7 +108,7 @@ function render() {
   postMessage(message);
 }
 
-function setCanvasWidth(canvas: HTMLElement, configuration: Configuration | null) {
+function setCanvasWidth(canvas: HTMLElement, configuration: ANConfiguration | null) {
   if (!configuration) {
     return;
   }
@@ -96,12 +116,12 @@ function setCanvasWidth(canvas: HTMLElement, configuration: Configuration | null
   canvas.style.width = `${configuration.canvasSize.width}px`;
 }
 
-function handleConfigurationChange(_event: CustomEvent<ConfigurationChangeEventDetail>) {
+function handleConfigurationChange(_event: CustomEvent<ANConfigurationChangeEventDetail>) {
   render();
 }
 
-function handlePresentationStateChange(event: CustomEvent<PresentationStateChangeEventDetail>) {
-  if (event.detail.newPresentationState !== 'presented') {
+function handlePresentationStateChange(event: CustomEvent<ANPresentationStateChangeEventDetail>) {
+  if (event.detail.newPresentationState !== ANPresentationState.PRESENTED) {
     render();
   }
 }

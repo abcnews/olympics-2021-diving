@@ -49,3 +49,9 @@ body > * {
 :root .Block-media.is-fixed > * {
   transform: translateZ(0);
 }
+
+@media (prefers-color-scheme: dark) {
+  #embeds iframe {
+    background-color: #000;
+  }
+}

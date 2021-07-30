@@ -55,7 +55,8 @@ whenOdysseyLoaded.then(() => {
         target: mountEl,
         props: {
           ...acto(getMountValue(mountEl)),
-          hasSubsequentContent: true
+          hasSubsequentContent: true,
+          isThemeable: false
         }
       })
   );

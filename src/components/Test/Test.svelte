@@ -14,6 +14,7 @@
 
   export let id: string;
   export let hasSubsequentContent: boolean = false;
+  export let isThemeable: boolean = true;
 
   const config = CONFIGS[id];
 
@@ -29,7 +30,7 @@
 
   $: hasGuessed = typeof estimate === 'number';
   $: isEstimateHigherThanScore = hasGuessed && estimate > score;
-  $: isEstimateWithinHalfPointOfScore = hasGuessed && getEstimateScoreDiff(estimate, score) <= 0.5;
+  $: isEstimateWithinPointOfScore = hasGuessed && getEstimateScoreDiff(estimate, score) <= 1;
 
   const guess = () => {
     estimate = values[0];
@@ -48,7 +49,7 @@
   };
 </script>
 
-<aside bind:this={el} data-has-guessed={bAttr(hasGuessed)}>
+<aside bind:this={el} data-has-guessed={bAttr(hasGuessed)} data-is-themeable={isThemeable ? '' : undefined}>
   <div class="status" aria-live="assertive">
     {#if hasGuessed}
       <p class="reaction" in:fly={{ delay: 250, duration: 500, y: 16 }}>
@@ -60,7 +61,7 @@
   </div>
   <div
     class="input"
-    data-is-estimate-within-half-point-of-score={bAttr(isEstimateWithinHalfPointOfScore)}
+    data-is-estimate-within-point-of-score={bAttr(isEstimateWithinPointOfScore)}
     data-is-estimate-higher-than-score={bAttr(isEstimateHigherThanScore)}
   >
     <RangeSlider
@@ -112,15 +113,31 @@
 
 <style>
   aside {
+    --test-text: #000;
+    --test-text-inverted: #fcfcfc;
     --test-primary-colour: #017987;
     --test-primary-inactive-colour: #c5e2e6;
+    --test-scale-gradient: linear-gradient(
+      to right,
+      #5b5b5b,
+      #5b5b5b 20%,
+      #7b7b7b 20%,
+      #7b7b7b 40%,
+      #979797 40%,
+      #979797 60%,
+      #b1b1b1 60%,
+      #b1b1b1 80%,
+      #d7d7d7 80%,
+      #d7d7d7
+    );
+
     --range-slider: var(--test-primary-colour);
     --range-handle: var(--test-primary-colour);
     --range-handle-focus: var(--test-primary-colour);
     --range-handle-inactive: var(--test-primary-colour);
-    --range-float-text: #000;
-    --range-pip: #fff;
-    --range-pip-text: #000;
+    --range-float-text: var(--test-text);
+    --range-pip: var(--test-text-inverted);
+    --range-pip-text: var(--test-text);
 
     display: flex;
     flex-direction: column;
@@ -130,8 +147,31 @@
     padding-bottom: 50vh;
     width: 100%;
     max-width: 21.5625rem;
+    color: var(--test-text);
     font-family: ABCSans, sans-serif;
     text-align: center;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    aside[data-is-themeable] {
+      --test-text: #fff;
+      --test-text-inverted: #000;
+      --test-primary-colour: #86f1f7;
+      --test-primary-inactive-colour: #979797;
+      --test-scale-gradient: linear-gradient(
+        to right,
+        #393939,
+        #393939 20%,
+        #4a4a4a 20%,
+        #4a4a4a 40%,
+        #5b5b5b 40%,
+        #5b5b5b 60%,
+        #7b7b7b 60%,
+        #7b7b7b 80%,
+        #979797 80%,
+        #979797
+      );
+    }
   }
 
   :global(:last-of-type) > aside,
@@ -171,7 +211,7 @@
   }
 
   .status .reaction {
-    color: var(--test-primary-colour, #000);
+    color: var(--test-primary-colour);
   }
 
   .input {
@@ -183,19 +223,7 @@
     margin: 1em;
     border-radius: 0;
     height: 0.375rem;
-    background-image: linear-gradient(
-      to right,
-      #5b5b5b,
-      #5b5b5b 20%,
-      #7b7b7b 20%,
-      #7b7b7b 40%,
-      #979797 40%,
-      #979797 60%,
-      #b1b1b1 60%,
-      #b1b1b1 80%,
-      #d7d7d7 80%,
-      #d7d7d7
-    );
+    background-image: var(--test-scale-gradient);
   }
 
   .input :global(.rangeSlider.disabled) {
@@ -224,7 +252,7 @@
 
   [data-has-guessed] > .input[data-is-estimate-higher-than-score] :global(.rangeHandle):nth-last-child(4),
   [data-has-guessed] > .input:not([data-is-estimate-higher-than-score]) :global(.rangeHandle):nth-last-child(3) {
-    --slider: #000;
+    --slider: var(--test-text);
     z-index: 4 !important;
     transform-origin: 50% 100%;
   }
@@ -244,7 +272,7 @@
     right: auto;
     left: 50%;
     bottom: auto;
-    border: 0.0625rem solid #fff;
+    border: 0.0625rem solid var(--test-text-inverted);
     border-radius: 0 !important;
     width: 0.4375rem;
     height: 100%;
@@ -284,7 +312,7 @@
     position: absolute;
     bottom: -1.25rem;
     left: 50%;
-    color: var(--slider);
+    color: var(--test-text);
     font-size: 0.75rem;
     font-weight: bold;
     letter-spacing: -0.025em;
@@ -307,15 +335,11 @@
     content: 'BOTH';
   }
 
-  .input[data-is-estimate-within-half-point-of-score]
-    :global(.rangeHandle):nth-last-child(4)
-    :global(.rangeNub)::before {
+  .input[data-is-estimate-within-point-of-score] :global(.rangeHandle):nth-last-child(4) :global(.rangeNub)::before {
     transform: translate(-87.5%, 0);
   }
 
-  .input[data-is-estimate-within-half-point-of-score]
-    :global(.rangeHandle):nth-last-child(3)
-    :global(.rangeNub)::before {
+  .input[data-is-estimate-within-point-of-score] :global(.rangeHandle):nth-last-child(3) :global(.rangeNub)::before {
     transform: translate(-12.5%, 0);
   }
 
@@ -335,7 +359,7 @@
     padding: 0;
     width: 1.875rem;
     height: 1.875rem;
-    color: #fff;
+    color: var(--test-text-inverted);
     font-size: 0.8125rem;
     line-height: 2.375;
     text-align: center;
@@ -343,10 +367,10 @@
     transition: color 0.25s;
   }
 
-  .input[data-is-estimate-within-half-point-of-score]:not([data-is-estimate-higher-than-score])
+  .input[data-is-estimate-within-point-of-score]:not([data-is-estimate-higher-than-score])
     :global(.rangeHandle):nth-last-child(4)
     :global(.rangeFloat),
-  .input[data-is-estimate-within-half-point-of-score][data-is-estimate-higher-than-score]
+  .input[data-is-estimate-within-point-of-score][data-is-estimate-higher-than-score]
     :global(.rangeHandle):nth-last-child(3)
     :global(.rangeFloat) {
     color: transparent;
@@ -358,7 +382,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    border: 0.0625rem solid #fff;
+    border: 0.0625rem solid var(--test-text-inverted);
     border-radius: 50%;
     width: 100%;
     height: 100%;
@@ -460,8 +484,8 @@
   button {
     border: 0;
     padding: 0.5rem 2.25rem;
-    background-color: var(--test-primary-colour, #000);
-    color: #fff;
+    background-color: var(--test-primary-colour);
+    color: var(--test-text-inverted);
     font-family: inherit;
     font-size: 1.125rem;
     transition: background-color 0.25s;
@@ -470,11 +494,11 @@
 
   button:hover,
   button:focus {
-    background-color: var(--test-primary-colour, #333);
+    background-color: var(--test-primary-colour);
   }
 
   button[disabled] {
-    background-color: var(--test-primary-inactive-colour, #ccc);
+    background-color: var(--test-primary-inactive-colour);
     cursor: default;
   }
 
@@ -489,7 +513,7 @@
   footer button {
     padding: 0;
     background-color: transparent;
-    color: var(--test-primary-colour, #000);
+    color: var(--test-primary-colour);
     font-size: 1em;
   }
 
