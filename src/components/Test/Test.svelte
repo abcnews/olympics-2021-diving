@@ -116,8 +116,8 @@
     --test-text: #000;
     --test-text-inverted: #fcfcfc;
     --test-primary-colour: #017987;
-    --test-primary-inactive-colour: #c5e2e6;
-    --test-scale-colour: #949494;
+    --test-primary-inactive-colour: #949494;
+    --test-scale-colour: var(--test-primary-inactive-colour);
 
     --range-slider: var(--test-primary-colour);
     --range-handle: var(--test-primary-colour);
@@ -126,6 +126,7 @@
     --range-float-text: var(--test-text);
     --range-pip: var(--test-text-inverted);
     --range-pip-text: var(--test-text);
+    --range-range-inactive: #017987;
 
     display: flex;
     flex-direction: column;
@@ -145,7 +146,6 @@
       --test-text: #fff;
       --test-text-inverted: #000;
       --test-primary-colour: #86f1f7;
-      --test-primary-inactive-colour: #1b3031;
     }
   }
 
