@@ -1,3 +1,11 @@
+/* Remove scrim from light right/left aligned Odyssey Block text on large screens */
+@media (min-width: 61.25rem) {
+  .Block.is-piecemeal.has-left.has-light .Block-content.is-left.u-richtext > *,
+  .Block.is-piecemeal.has-right.has-light .Block-content.is-right.u-richtext > * {
+    background: none;
+  }
+}
+
 /* Remove scrim from right/left aligned Ease Frame text on large screens */
 @media (min-width: 1023px) {
   [data-mount] > [data-inset='left'] > div > div::before,
