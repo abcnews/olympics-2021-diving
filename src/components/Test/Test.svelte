@@ -206,9 +206,9 @@
   }
 
   .input :global(.rangeSlider) :global(.rangeHandle) {
-    top: -90%;
-    width: 1.5rem;
-    height: 2.25rem;
+    top: -0.5rem;
+    width: 2.5rem;
+    height: 3.5rem;
   }
 
   @keyframes paddleUpClockwise {
@@ -250,7 +250,7 @@
     border: 0.0625rem solid var(--test-text-inverted);
     border-radius: 0 !important;
     width: 0.4375rem;
-    height: 100%;
+    height: 2.5rem;
     background-color: var(--slider);
     box-shadow: none !important;
     transition: none;
@@ -324,7 +324,7 @@
   .input :global(.rangeSlider.focus) :global(.rangeFloat) {
     opacity: 1;
     transform: translate(-50%, -50%);
-    top: 0.125rem;
+    top: 1rem;
     background-color: transparent;
     transition: none;
   }
@@ -336,7 +336,7 @@
     height: 1.875rem;
     color: var(--test-text-inverted);
     font-size: 0.8125rem;
-    line-height: 2.375;
+    line-height: 2.4375;
     text-align: center;
     letter-spacing: 0.025em;
     transition: color 0.25s;
@@ -357,13 +357,13 @@
 
   .input :global(.rangeSlider) :global(.rangeHandle)::after {
     content: '';
-    transform: translate(-50%, -100%);
+    transform: translate(-50%, -50%);
     position: absolute;
     top: 50%;
     left: 50%;
     display: block;
     width: 0.3125rem;
-    height: 0.3125rem;
+    height: 0.5rem;
     background-color: var(--slider);
   }
 
