@@ -1,5 +1,5 @@
 <script lang="ts">
-  const src = `${__webpack_public_path__}hero.svg`;
+  import src from './hero.svg';
 </script>
 
 <div>
