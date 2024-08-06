@@ -195,7 +195,7 @@
   }
 
   .input :global(.rangeSlider) {
-    margin: 1em;
+    margin: 1em 2em;
     border-radius: 0;
     height: 0.375rem;
     background-color: var(--test-scale-colour);
