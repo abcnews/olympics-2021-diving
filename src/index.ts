@@ -6,61 +6,65 @@ import Hero from './components/Hero/Hero.svelte';
 import Scrubby from './components/Scrubby/Scrubby.svelte';
 import Test from './components/Test/Test.svelte';
 
-whenOdysseyLoaded.then(() => {
-  selectMounts('hero').forEach(mountEl => {
-    const { parentElement } = mountEl;
+import { proxy } from '@abcnews/dev-proxy';
 
-    if (!parentElement) {
-      return;
-    }
+proxy('olympics-2021-diving')
+  .then(() => whenOdysseyLoaded)
+  .then(() => {
+    selectMounts('hero').forEach(mountEl => {
+      const { parentElement } = mountEl;
 
-    const titleEl = parentElement.querySelector('h1');
+      if (!parentElement) {
+        return;
+      }
 
-    if (titleEl && titleEl.parentElement === parentElement) {
-      mountEl.removeAttribute('class');
-      parentElement.insertBefore(mountEl, titleEl);
-    }
+      const titleEl = parentElement.querySelector('h1');
 
-    new Hero({
-      target: mountEl,
-      props: {}
-    });
-  });
+      if (titleEl && titleEl.parentElement === parentElement) {
+        mountEl.removeAttribute('class');
+        parentElement.insertBefore(mountEl, titleEl);
+      }
 
-  selectMounts('scrubby').forEach(mountEl => {
-    const blockEl = mountEl.closest('.Block');
-
-    if (!blockEl) {
-      return;
-    }
-
-    const rootEl = blockEl.querySelector('.Block-media');
-
-    if (!rootEl) {
-      return;
-    }
-
-    mountEl.parentElement?.removeChild(mountEl);
-    rootEl.innerHTML = '';
-
-    new Scrubby({
-      target: rootEl,
-      props: acto(getMountValue(mountEl))
-    });
-  });
-
-  selectMounts('test').forEach(
-    mountEl =>
-      new Test({
+      new Hero({
         target: mountEl,
-        props: {
-          ...acto(getMountValue(mountEl)),
-          hasSubsequentContent: true,
-          isThemeable: false
-        }
-      })
-  );
-});
+        props: {}
+      });
+    });
+
+    selectMounts('scrubby').forEach(mountEl => {
+      const blockEl = mountEl.closest('.Block');
+
+      if (!blockEl) {
+        return;
+      }
+
+      const rootEl = blockEl.querySelector('.Block-media');
+
+      if (!rootEl) {
+        return;
+      }
+
+      mountEl.parentElement?.removeChild(mountEl);
+      rootEl.innerHTML = '';
+
+      new Scrubby({
+        target: rootEl,
+        props: acto(getMountValue(mountEl))
+      });
+    });
+
+    selectMounts('test').forEach(
+      mountEl =>
+        new Test({
+          target: mountEl,
+          props: {
+            ...acto(getMountValue(mountEl)),
+            hasSubsequentContent: true,
+            isThemeable: false
+          }
+        })
+    );
+  });
 
 if (process.env.NODE_ENV === 'development') {
   console.debug(`[olympics-2021-diving] public path: ${__webpack_public_path__}`);

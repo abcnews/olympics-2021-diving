@@ -1,5 +1,3 @@
-const { version } = require('./package.json');
-
 module.exports = {
   type: 'svelte',
   build: {

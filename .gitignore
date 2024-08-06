@@ -2,8 +2,7 @@
 /node_modules
 
 # output
-/.build*
-/.deploy
+/.aunty
 /olympics-2021-diving-*
 
 # misc

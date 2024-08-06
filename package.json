@@ -18,14 +18,14 @@
 		}
 	},
 	"devDependencies": {
-		"@abcnews/aunty": "^13.1.1",
-		"@testing-library/svelte": "^3.0.3",
-		"@types/jest": "^26.0.23",
+		"@abcnews/aunty": "^15.0.3",
+		"@abcnews/dev-proxy": "^1.2.1",
 		"@types/webpack-env": "^1.16.0",
 		"calipers": "^2.0.1",
 		"calipers-jpeg": "^2.0.0",
 		"calipers-png": "^2.0.0",
 		"calipers-svg": "^2.0.1",
+		"svelte": "^4.2.18",
 		"write-json-file": "^4.3.0",
 		"zip-a-folder": "^1.1.0"
 	},
@@ -34,7 +34,6 @@
 		"@abcnews/env-utils": "^3.0.0",
 		"@abcnews/mount-utils": "^2.0.0",
 		"lottie-web": "^5.7.11",
-		"svelte": "^3.41.0",
-		"svelte-range-slider-pips": "^1.7.0"
+		"svelte-range-slider-pips": "^2.3.1"
 	}
 }
